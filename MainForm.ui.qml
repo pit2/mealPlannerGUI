@@ -52,6 +52,8 @@ Item {
         x: 464
         y: 353
         text: qsTr("Show me food!")
+        activeFocusOnPress: true
+        isDefault: false
         tooltip: "Compute a meal plan using the current settings."
         checkable: false
         anchors.bottom: parent.bottom

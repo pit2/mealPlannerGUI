@@ -1,11 +1,7 @@
 #include "myslots.h"
 #include <QDebug>
-#include <stdlib.h>
 #include <unistd.h>
-#include <sys/types.h>
 #include <string>
-#include <cstring>
-#include <QString>
 
 using namespace std;
 
@@ -16,7 +12,6 @@ void MySlots::launchClingo(int age, int weight) {
 
         qDebug() << "Launching clingo!";
         pid_t processId;
-
 
         if ((processId = fork()) == 0) {
             char app[] = "/Applications/clingo-4.5.4-macos-10.9/clingo";
