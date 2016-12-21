@@ -88,9 +88,9 @@ Item {
             y: 61
             width: 548
             height: 22
-            tickmarksEnabled: true
+            tickmarksEnabled: false
             stepSize: 1
-            updateValueWhileDragging: false
+            updateValueWhileDragging: true
             minimumValue: 3
             value: 20
             maximumValue: 120
@@ -132,8 +132,8 @@ Item {
                 text: qsTr("20")
             }
             stepSize: 1
-            minimumValue: 30
-            updateValueWhileDragging: false
+            minimumValue: 5
+            updateValueWhileDragging: true
             tickmarksEnabled: false
         }
     }

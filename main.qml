@@ -25,9 +25,11 @@ ApplicationWindow {
     MainForm {
         anchors.fill: parent
         id: page
+        objectName: "main"
 
         ageSlider {
             updateValueWhileDragging: true
+            objectName: "age"
         }
 
         age {
@@ -36,72 +38,19 @@ ApplicationWindow {
 
         weightSlider {
             updateValueWhileDragging: true
+            objectName: "weight"
         }
 
         weight {
             text: weightSlider.value
         }
 
-
+        signal buttonClickedSignal(int age, int weight)
 
         startComputationButton {
-            onClicked: console.log(startComputationButton.text + " clicked")
+            onClicked: { console.log(startComputationButton.text + " clicked")
+                            buttonClickedSignal(ageSlider.value, weightSlider.value) }
+            objectName: "startButton"
         }
-    }
-
- /*   StateGroup {
-              id: stateGroup
-              states: [
-                  State {
-                      name: "State1"
-
-                      PropertyChanges {
-                          target: page.icon
-                          x: page.middleRightRect.x
-                          y: page.middleRightRect.y
-                      }
-                  },
-                  State {
-                      name: "State2"
-
-                      PropertyChanges {
-                          target: page.icon
-                          x: page.bottomLeftRect.x
-                          y: page.bottomLeftRect.y
-                      }
-                  }
-              ]
-
-
-
-
-              transitions: [
-                  Transition {
-                      from: "*"; to: "State1"
-                      NumberAnimation {
-                          easing.type: Easing.OutBounce
-                          properties: "x,y";
-                          duration: 1000
-                      }
-                  },
-
-                  Transition {
-                      from: "*"; to: "State2"
-                      NumberAnimation {
-                          properties: "x,y";
-                          easing.type: Easing.InOutQuad;
-                          duration: 2000
-                      }
-                  },
-
-                  Transition {
-                      NumberAnimation {
-                          properties: "x,y";
-                          duration: 200
-                      }
-                  }
-              ]
-
-
-    }*/
+    } 
 }
