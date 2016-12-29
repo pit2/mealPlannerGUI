@@ -17,10 +17,11 @@ ApplicationWindow {
         objectName: "main"
         state: "base state"
 
+        signal computationButtonClickedSignal(int age, int weight, int female, bool vegan, bool lactoseFree, int activity)
+        signal pathsSignal(string pathToCLingo, string pathToLp)
 
         ageSlider {
             updateValueWhileDragging: true
-            objectName: "age"
         }
 
         age {
@@ -29,28 +30,58 @@ ApplicationWindow {
 
         weightSlider {
             updateValueWhileDragging: true
-            objectName: "weight"
         }
 
         weight {
             text: weightSlider.value
         }
 
-        signal computationButtonClickedSignal(int age, int weight)
-        signal pathsSignal(string pathToCLingo, string pathToLp)
-
+        activitySlider {
+            updateValueWhileDragging: true
+            onValueChanged: {
+                if (activitySlider.value == 1) {
+                    activity.text = "Rooted Tree"
+                } else if (activitySlider.value == 2) {
+                    activity.text = "Couch Potato"
+                } else if (activitySlider.value == 3) {
+                    activity.text = "Minor Activity"
+                } else if (activitySlider.value == 4) {
+                    activity.text = "Some Walking"
+                } else if (activitySlider.value == 5) {
+                    activity.text = "Physically Active"
+                } else if (activitySlider.value == 6) {
+                    activity.text = "Hercules"
+                }
+            }
+        }
 
         startComputationButton {
             onClicked: {
                 console.log(startComputationButton.text + " clicked")
-                computationButtonClickedSignal(ageSlider.value, weightSlider.value)
+                computationButtonClickedSignal(ageSlider.value, weightSlider.value, genderBox.currentIndex,
+                                               veganCheckbox.checked, lactoseCheckBox.checked, activitySlider.value)
             }
-            objectName: "startButton"
         }
 
         configButton {
             onClicked: {
                 state = "config state"
+            }
+        }
+
+        veganCheckbox {
+            onCheckedChanged: {
+                if  (veganCheckbox.checked) {
+                    lactoseCheckBox.checked = true
+                }
+            }
+        }
+
+        lactoseCheckBox {
+            onCheckedChanged: {
+                if (!lactoseCheckBox.checked) {
+                    veganCheckbox.checked = false
+                }
             }
         }
 
@@ -64,5 +95,11 @@ ApplicationWindow {
 
             }
         }
+
+        genderBox {
+            model: ["male", "female"]
+        }
+
+
     } 
 }

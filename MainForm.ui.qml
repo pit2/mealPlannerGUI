@@ -6,6 +6,10 @@ Item {
     id: page
     width: 640
     height: 480
+    property alias activity: activity
+    property alias activitySlider: activitySlider
+    property alias lactoseCheckBox: lactoseCheckBox
+    property alias genderBox: genderBox
     property alias lpPathInput: lpPathInput
     property alias clingoPathInput: clingoPathInput
     property alias saveButton: saveButton
@@ -71,23 +75,11 @@ Item {
         width: 600
         height: 250
         color: "#ffffff"
+        z: -1
         anchors.left: parent.left
         anchors.leftMargin: 18
         anchors.top: parent.top
         anchors.topMargin: 60
-
-        CheckBox {
-            id: veganCheckbox
-            x: 11
-            y: 12
-            text: qsTr("vegan")
-            anchors.top: parent.top
-            anchors.topMargin: 10
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-            activeFocusOnPress: false
-            checked: true
-        }
 
         Slider {
             id: ageSlider
@@ -142,6 +134,62 @@ Item {
             minimumValue: 5
             updateValueWhileDragging: true
             tickmarksEnabled: false
+        }
+
+        CheckBox {
+            id: veganCheckbox
+            x: 92
+            y: 105
+            text: qsTr("vegan")
+            anchors.top: parent.top
+            anchors.topMargin: 10
+            anchors.left: parent.left
+            anchors.leftMargin: 161
+            activeFocusOnPress: false
+            checked: true
+        }
+
+        ComboBox {
+            id: genderBox
+            x: 8
+            y: 10
+            height: 20
+        }
+
+        CheckBox {
+            id: lactoseCheckBox
+            x: 245
+            y: 10
+            text: qsTr("lactose-free meals")
+            checked: true
+        }
+
+        Slider {
+            id: activitySlider
+            x: 10
+            y: 169
+            width: 548
+            height: 22
+            stepSize: 1
+            updateValueWhileDragging: true
+            maximumValue: 6
+            value: 2
+            tickmarksEnabled: true
+            Label {
+                id: activityLabel
+                x: 0
+                y: -22
+                text: qsTr("Activity level:")
+            }
+
+            Label {
+                id: activity
+                x: 83
+                y: -22
+                width: 160
+                text: qsTr("Couch Potato")
+            }
+            minimumValue: 1
         }
     }
 
@@ -261,7 +309,12 @@ Item {
 
             PropertyChanges {
                 target: lpPathInput
-                text: qsTr("Path/To/DirectoryWithLPFiles")
+                text: qsTr("/Path/To/Directory/WithLPFiles/")
+            }
+
+            PropertyChanges {
+                target: clingoPathInput
+                text: qsTr("/Applications/clingo-4.5.4-macos-10.9/clingo")
             }
         }
     ]
