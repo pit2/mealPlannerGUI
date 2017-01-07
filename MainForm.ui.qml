@@ -6,6 +6,8 @@ Item {
     id: page
     width: 640
     height: 480
+    property alias configButton: configButton
+    property alias mealPlanLabel: mealPlanLabel
     property alias activity: activity
     property alias activitySlider: activitySlider
     property alias lactoseCheckBox: lactoseCheckBox
@@ -13,7 +15,6 @@ Item {
     property alias lpPathInput: lpPathInput
     property alias clingoPathInput: clingoPathInput
     property alias saveButton: saveButton
-    property alias configButton: configButton
     property alias weight: weight
     property alias weightLabel: weightLabel
     property alias weightSlider: weightSlider
@@ -25,22 +26,6 @@ Item {
     property alias veganCheckbox: veganCheckbox
 
     Text {
-        id: welcomeLabel
-        x: 263
-        width: 114
-        height: 15
-        color: "#600798"
-        text: qsTr("Welcome to")
-        anchors.horizontalCenterOffset: 51
-        anchors.horizontalCenter: title.horizontalCenter
-        anchors.top: parent.top
-        anchors.topMargin: 8
-        textFormat: Text.RichText
-        horizontalAlignment: Text.AlignHCenter
-        font.pixelSize: 12
-    }
-
-    Text {
         id: title
         x: 216
         width: 106
@@ -49,8 +34,8 @@ Item {
         text: qsTr("FOOD PLANNER")
         anchors.horizontalCenterOffset: -59
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: welcomeLabel.bottom
-        anchors.topMargin: 6
+        anchors.top: parent.top
+        anchors.topMargin: 0
         font.capitalization: Font.AllUppercase
         font.bold: true
         font.pixelSize: 26
@@ -193,16 +178,6 @@ Item {
         }
     }
 
-    Button {
-        id: configButton
-        x: 570
-        text: qsTr("(!)")
-        anchors.right: parent.right
-        anchors.rightMargin: 22
-        anchors.top: parent.top
-        anchors.topMargin: 18
-    }
-
     Rectangle {
         id: blurRectangle
         x: 83
@@ -273,6 +248,31 @@ Item {
         border.color: "#020202"
         anchors.fill: parent
     }
+
+    Rectangle {
+        id: resultRectangle
+        x: 8
+        y: 60
+        width: 200
+        height: 200
+        color: "#ffffff"
+        visible: false
+        opacity: 0
+
+        Label {
+            id: mealPlanLabel
+            text: qsTr("Label")
+            anchors.fill: parent
+            opacity: 0
+        }
+    }
+
+    Button {
+        id: configButton
+        x: 556
+        y: 16
+        text: qsTr("(!)")
+    }
     states: [
         State {
             name: "config state"
@@ -315,6 +315,47 @@ Item {
             PropertyChanges {
                 target: clingoPathInput
                 text: qsTr("/Applications/clingo-4.5.4-macos-10.9/clingo")
+            }
+        },
+        State {
+            name: "result state"
+
+            PropertyChanges {
+                target: startComputationButton
+                y: 429
+                text: qsTr("Show me food!")
+                visible: false
+                anchors.bottomMargin: 25
+                anchors.horizontalCenterOffset: 6
+            }
+
+            PropertyChanges {
+                target: lpPathInput
+                text: qsTr("Path/To/ClingoApp")
+            }
+
+            PropertyChanges {
+                target: rect
+                visible: false
+            }
+
+            PropertyChanges {
+                target: resultRectangle
+                width: 619
+                height: 363
+                visible: true
+                opacity: 1
+            }
+
+            PropertyChanges {
+                target: mealPlanLabel
+                x: 98
+                y: 61
+                width: 424
+                height: 242
+                textFormat: Text.PlainText
+                wrapMode: Text.WordWrap
+                opacity: 1
             }
         }
     ]

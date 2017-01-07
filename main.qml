@@ -16,6 +16,7 @@ ApplicationWindow {
         id: page
         objectName: "main"
         state: "base state"
+        //property alias mealText: mealPlanLabel.text
 
         signal computationButtonClickedSignal(int age, int weight, int female, bool vegan, bool lactoseFree, int activity)
         signal pathsSignal(string pathToCLingo, string pathToLp)
@@ -60,6 +61,7 @@ ApplicationWindow {
                 console.log(startComputationButton.text + " clicked")
                 computationButtonClickedSignal(ageSlider.value, weightSlider.value, genderBox.currentIndex,
                                                veganCheckbox.checked, lactoseCheckBox.checked, activitySlider.value)
+                state = "result state"
             }
         }
 
@@ -92,12 +94,16 @@ ApplicationWindow {
                     page.state = ""
                     pathsSignal(clingoPathInput.text, lpPathInput.text)
                 }
-
             }
         }
 
         genderBox {
             model: ["male", "female"]
+        }
+
+        mealPlanLabel {
+           // id: mealPlanLabel
+            objectName: "mealPlan"
         }
 
 
