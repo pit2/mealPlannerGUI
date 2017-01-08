@@ -5,11 +5,6 @@
 
 using namespace std;
 
-/* since pipes are unidirectional, we need two pipes.
-   one for data to flow from parent's stdout to child's
-   stdin and the other for child's stdout to flow to
-   parent's stdin */
-
 #define NUM_PIPES          2
 
 #define PARENT_WRITE_PIPE  0
@@ -17,8 +12,7 @@ using namespace std;
 
 int pipes[NUM_PIPES][2];
 
-/* always in a pipe[], pipe[0] is for read and
-   pipe[1] is for write */
+/* pipe[0] is for read and pipe[1] is for write */
 #define READ_FD  0
 #define WRITE_FD 1
 
@@ -102,7 +96,6 @@ void MySlots::launchClingo(int age, int weight, int isFemale, bool vegan, bool l
                 qDebug() << "IO Error\n";
             }
         }
-
 }
 
 void MySlots::setPaths(QString clingoPath, QString lpPath) {

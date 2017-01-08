@@ -21,7 +21,7 @@ public:
 private:
     QString pathToClingo = "/Applications/clingo-4.5.4-macos-10.9/clingo";
     QString pathToLp = "/Users/martin/Programmierung/ASP/Praktikum/";
-    QString m_answerSets = "test";
+    QString m_answerSets = "No answer set computed yet.";
 
 
 signals:

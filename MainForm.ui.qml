@@ -6,8 +6,8 @@ Item {
     id: page
     width: 640
     height: 480
+    property alias mealPlanTextArea: mealPlanTextArea
     property alias configButton: configButton
-    property alias mealPlanLabel: mealPlanLabel
     property alias activity: activity
     property alias activitySlider: activitySlider
     property alias lactoseCheckBox: lactoseCheckBox
@@ -259,11 +259,9 @@ Item {
         visible: false
         opacity: 0
 
-        Label {
-            id: mealPlanLabel
-            text: qsTr("Label")
+        TextArea {
+            id: mealPlanTextArea
             anchors.fill: parent
-            opacity: 0
         }
     }
 
@@ -318,7 +316,7 @@ Item {
 
             PropertyChanges {
                 target: lpPathInput
-                text: qsTr("/Path/To/Directory/WithLPFiles/")
+                text: qsTr("/Users/martin/Programmierung/ASP/Praktikum/")
             }
 
             PropertyChanges {
@@ -362,19 +360,16 @@ Item {
             }
 
             PropertyChanges {
-                target: mealPlanLabel
+                target: configButton
+                visible: false
+            }
+
+            PropertyChanges {
+                target: mealPlanTextArea
                 x: 98
                 y: 61
                 width: 424
                 height: 242
-                textFormat: Text.PlainText
-                wrapMode: Text.WordWrap
-                opacity: 1
-            }
-
-            PropertyChanges {
-                target: configButton
-                visible: false
             }
         }
     ]

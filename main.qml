@@ -17,7 +17,6 @@ ApplicationWindow {
         id: page
         objectName: "main"
         state: "base state"
-        //property alias mealText: mealPlanLabel.text
 
         signal computationButtonClickedSignal(int age, int weight, int female, bool vegan, bool lactoseFree, int activity)
         signal pathsSignal(string pathToCLingo, string pathToLp)
@@ -116,8 +115,7 @@ ApplicationWindow {
             model: ["male", "female"]
         }
 
-        mealPlanLabel {
-           // id: mealPlanLabel
+        mealPlanTextArea {
             objectName: "mealPlan"
         }
 
