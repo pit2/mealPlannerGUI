@@ -269,9 +269,18 @@ Item {
 
     Button {
         id: configButton
-        x: 556
-        y: 16
-        text: qsTr("(!)")
+        x: 586
+        width: 32
+        height: 32
+        text: ""
+        anchors.right: parent.right
+        anchors.rightMargin: 22
+        anchors.top: parent.top
+        anchors.topMargin: 22
+        iconSource: "nil"
+        activeFocusOnPress: true
+        opacity: 1
+        isDefault: true
     }
     states: [
         State {
@@ -316,6 +325,11 @@ Item {
                 target: clingoPathInput
                 text: qsTr("/Applications/clingo-4.5.4-macos-10.9/clingo")
             }
+
+            PropertyChanges {
+                target: configButton
+                visible: false
+            }
         },
         State {
             name: "result state"
@@ -356,6 +370,11 @@ Item {
                 textFormat: Text.PlainText
                 wrapMode: Text.WordWrap
                 opacity: 1
+            }
+
+            PropertyChanges {
+                target: configButton
+                visible: false
             }
         }
     ]

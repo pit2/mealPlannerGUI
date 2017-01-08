@@ -2,6 +2,7 @@ import QtQuick 2.5
 import QtQuick.Controls 1.4
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.2
+import QtQuick.Controls.Styles 1.4
 
 
 ApplicationWindow {
@@ -63,9 +64,22 @@ ApplicationWindow {
                                                veganCheckbox.checked, lactoseCheckBox.checked, activitySlider.value)
                 state = "result state"
             }
+            isDefault: true
         }
 
         configButton {
+
+            iconSource: "settingsIcon32.png"
+            style: ButtonStyle {
+                background: Rectangle {
+                    border.width: 0
+                    implicitHeight: 32
+                    implicitWidth: 32
+                    color: "transparent"
+                }
+
+            }
+
             onClicked: {
                 state = "config state"
             }
@@ -95,6 +109,7 @@ ApplicationWindow {
                     pathsSignal(clingoPathInput.text, lpPathInput.text)
                 }
             }
+            isDefault: true
         }
 
         genderBox {
