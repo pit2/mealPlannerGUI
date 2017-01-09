@@ -10,7 +10,7 @@ ApplicationWindow {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Food Planner")
+    title: qsTr("Meal Planner")
 
     MainForm {
         anchors.fill: parent
@@ -57,11 +57,22 @@ ApplicationWindow {
         }
 
         startComputationButton {
+            iconSource: "cauldron.png"
+           /* style: ButtonStyle {
+                background: Rectangle {
+                    border.width: 0
+                    implicitHeight: 128
+                    implicitWidth: 128
+                    color: "transparent"
+                }
+
+            }*/
             onClicked: {
-                console.log(startComputationButton.text + " clicked")
+                console.log("COmputation button clicked")
+                state = "result state"
                 computationButtonClickedSignal(ageSlider.value, weightSlider.value, genderBox.currentIndex,
                                                veganCheckbox.checked, lactoseCheckBox.checked, activitySlider.value)
-                state = "result state"
+
             }
             isDefault: true
         }

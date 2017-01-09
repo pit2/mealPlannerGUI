@@ -44,14 +44,17 @@ Item {
     Button {
         id: startComputationButton
         x: 464
-        y: 353
-        text: qsTr("Show me food!")
+        y: 334
+        width: 128
+        height: 128
+        text: qsTr("")
+        anchors.horizontalCenterOffset: 0
         activeFocusOnPress: true
         isDefault: false
         tooltip: "Compute a meal plan using the current settings."
-        checkable: false
+        checkable: true
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 101
+        anchors.bottomMargin: 18
         anchors.horizontalCenter: parent.horizontalCenter
     }
 

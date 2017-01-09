@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <unistd.h>
 #include <string>
+#include <QEventLoop>
 
 using namespace std;
 
@@ -54,8 +55,8 @@ void MySlots::launchClingo(int age, int weight, int isFemale, bool vegan, bool l
             string sex = isFemale == 0 ? "male" : "female";
             string habits = vegan ? "vegan" : "normal";
             string lactIntolerance = lactoseFree ? "true" : "false";
-            char * app = pathToClingo.toLocal8Bit().data();//"/Applications/clingo-4.5.4-macos-10.9/clingo";
-            char * const argv[] = { app, (char*)"1", (pathToLp + "nutritionFacts16_mod.lp").toLocal8Bit().data(),
+            char * app = pathToClingo.toLocal8Bit().data();
+            char * const argv[] = { app, (char*)"7", (pathToLp + "nutritionFacts16_mod.lp").toLocal8Bit().data(),
                                     (pathToLp + "dailyDose.lp").toLocal8Bit().data(),
                                     (pathToLp + "mealsPerDay.lp").toLocal8Bit().data(),
                                     (pathToLp + "categories_mod.lp").toLocal8Bit().data(),
@@ -73,8 +74,10 @@ void MySlots::launchClingo(int age, int weight, int isFemale, bool vegan, bool l
         } else if (processId < 0) {
             perror("fork error");
         } else {
+          //  wait(NULL);
             char buffer[100];
-            int count;
+            QString clingoOut;
+            int count = 1;
 
             /* close fds not required by parent */
         //    close(CHILD_READ_FD);
@@ -84,17 +87,25 @@ void MySlots::launchClingo(int age, int weight, int isFemale, bool vegan, bool l
         //    write(PARENT_WRITE_FD, "2^32\n", 5);
 
             // Read from child’s stdout
-            count = read(PARENT_READ_FD, buffer, sizeof(buffer)-1);
-            if (count >= 0) {
-                buffer[count] = 0;
-                qDebug() << "Redirecting child stdout: " << buffer ;
-                if (mealLabel != NULL) {
-                    mealLabel->setProperty("text", buffer);
-                }
-                m_answerSets = buffer;
-            } else {
-                qDebug() << "IO Error\n";
+            while(count > 0) {
+                count = read(PARENT_READ_FD, buffer, sizeof(buffer)-1);
+                buffer[count] = '\0';
+                clingoOut += buffer;
             }
+
+           // if (count >= 0) {
+            //    buffer[count] = 0;
+                qDebug() << "Redirecting child stdout: " << clingoOut ;
+                if (mealLabel != NULL) {
+                //    QString tmp = mealLabel->property("text").toString();
+                    mealLabel->setProperty("text", clingoOut);
+                }
+                m_answerSets = clingoOut;
+          //  } else {
+          //      qDebug() << "IO Error\n";
+          //  }
+
+              close(PARENT_READ_FD);
         }
 }
 
