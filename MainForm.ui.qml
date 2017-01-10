@@ -31,7 +31,7 @@ Item {
         width: 106
         height: 15
         color: "#0f6226"
-        text: qsTr("FOOD PLANNER")
+        text: qsTr("MEAL PLANNER")
         anchors.horizontalCenterOffset: -59
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
@@ -373,6 +373,7 @@ Item {
                 y: 61
                 width: 424
                 height: 242
+                readOnly: false
             }
         }
     ]
