@@ -373,7 +373,7 @@ Item {
                 y: 61
                 width: 424
                 height: 242
-                readOnly: false
+                readOnly: true
             }
         }
     ]

@@ -128,6 +128,7 @@ ApplicationWindow {
 
         mealPlanTextArea {
             objectName: "mealPlan"
+            readOnly: false
         }
 
 
