@@ -32,9 +32,9 @@ void ComputationThread::setPaths(QString clingoPath, QString lpPath) {
     pathToLp = lpPath;
 }
 
-void ComputationThread::launchClingo(int age, int weight, int isFemale, bool vegan, bool lactoseFree, int activity) {
+void ComputationThread::launchClingo(int age, int weight, int isFemale, bool vegan, bool lactoseFree, int activity, int days, int startOn) {
     QString answerSets;
-    qDebug() << "Launching clingo in different thread!";
+    qDebug() << "Launching clingo in different thread with parameters days = " << days << ", startOn = " << startOn << ", vegan = " << vegan;
     pid_t processId;
 
      // pipes for parent to write and read
@@ -58,7 +58,7 @@ void ComputationThread::launchClingo(int age, int weight, int isFemale, bool veg
         string habits = vegan ? "vegan" : "normal";
         string lactIntolerance = lactoseFree ? "true" : "false";
         char * app = pathToClingo.toLocal8Bit().data();
-        char * const argv[] = { app, (char*)"7", (pathToLp + "nutritionFacts16_mod.lp").toLocal8Bit().data(),
+        char * const argv[] = { app, (char*)"1", (pathToLp + "nutritionFacts16_mod.lp").toLocal8Bit().data(),
                                 (pathToLp + "dailyDose.lp").toLocal8Bit().data(),
                                 (pathToLp + "mealsPerDay.lp").toLocal8Bit().data(),
                                 (pathToLp + "categories_mod.lp").toLocal8Bit().data(),
@@ -67,7 +67,10 @@ void ComputationThread::launchClingo(int age, int weight, int isFemale, bool veg
                                 (char*)(("-c sex = " + sex).c_str()),
                                 (char*)(("-c habits = " + habits).c_str()),
                                 (char*)(("-c lactIntolerance = " + lactIntolerance).c_str()),
-                                (char*)(("-c pal = " + to_string(activity)).c_str()), NULL };
+                                (char*)(("-c pal = " + to_string(activity)).c_str()),
+                                (char*)(("-c numberOfDays = " + to_string(days)).c_str()),
+                                (char*)(("-c startOn = " + to_string(startOn)).c_str()),
+                                (char*)"-t 2", NULL };
 
 
         if (execv(app, argv) < 0) {

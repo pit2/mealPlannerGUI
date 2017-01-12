@@ -6,6 +6,9 @@ Item {
     id: page
     width: 640
     height: 480
+    property alias dayBox: dayBox
+    property alias startOnBox: startOnBox
+    property alias busyIndicatorRect: busyIndicatorRect
     property alias mealPlanTextArea: mealPlanTextArea
     property alias configButton: configButton
     property alias activity: activity
@@ -65,7 +68,7 @@ Item {
         color: "#ffffff"
         z: -1
         anchors.left: parent.left
-        anchors.leftMargin: 18
+        anchors.leftMargin: 20
         anchors.top: parent.top
         anchors.topMargin: 60
 
@@ -148,7 +151,7 @@ Item {
             id: lactoseCheckBox
             x: 245
             y: 10
-            text: qsTr("lactose-free meals")
+            text: qsTr("lactose-free")
             checked: true
         }
 
@@ -179,6 +182,49 @@ Item {
             }
             minimumValue: 1
         }
+
+        ComboBox {
+            id: dayBox
+            x: 446
+            y: 10
+            width: 46
+            height: 20
+
+            Label {
+                id: daysLabel
+                x: 54
+                y: 0
+                text: qsTr(" days")
+            }
+
+            Label {
+                id: planForLabel
+                x: -55
+                y: 0
+                text: qsTr("Plan for")
+            }
+
+            ComboBox {
+                id: startOnBox
+                x: 0
+                y: 26
+                width: 120
+                height: 20
+                anchors.top: parent.top
+                anchors.topMargin: 22
+                anchors.right: parent.right
+                anchors.rightMargin: -74
+
+                Label {
+                    id: startingOnLabel
+                    x: -74
+                    y: 0
+                    text: qsTr("starting on")
+                    anchors.right: parent.right
+                    anchors.rightMargin: 129
+                }
+            }
+        }
     }
 
     Rectangle {
@@ -196,6 +242,10 @@ Item {
         x: -6
         y: -9
         color: "#bcb0b0"
+        anchors.rightMargin: 0
+        anchors.bottomMargin: 0
+        anchors.leftMargin: 0
+        anchors.topMargin: 0
         visible: false
         Button {
             id: saveButton
@@ -265,6 +315,16 @@ Item {
         TextArea {
             id: mealPlanTextArea
             anchors.fill: parent
+        }
+
+        Rectangle {
+            id: busyIndicatorRect
+            x: 288
+            y: 368
+            width: 200
+            height: 200
+            color: "#ffffff"
+            opacity: 0
         }
     }
 
@@ -374,6 +434,17 @@ Item {
                 width: 424
                 height: 242
                 readOnly: true
+            }
+
+            PropertyChanges {
+                target: busyIndicatorRect
+                x: 293
+                y: 369
+                width: 34
+                height: 35
+                color: "#00000000"
+                border.width: 0
+                opacity: 1
             }
         }
     ]

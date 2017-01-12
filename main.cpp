@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     GUIUpdater updater;
     ComputationThread compThread;
 
-    QObject::connect(main, SIGNAL(computationButtonClickedSignal(int,int,int,bool,bool,int)), &compThread, SLOT(launchClingo(int,int,int,bool,bool,int)));
+    QObject::connect(main, SIGNAL(computationButtonClickedSignal(int,int,int,bool,bool,int,int,int)), &compThread, SLOT(launchClingo(int,int,int,bool,bool,int,int,int)));
     QObject::connect(main, SIGNAL(pathsSignal(QString, QString)), &compThread, SLOT(setPaths(QString, QString)));
     QObject::connect(&compThread, SIGNAL(resultReady(QString)), &updater, SLOT(updateGUI(QString)));
     updater.mealLabel = main->findChild<QObject*>("mealPlan");

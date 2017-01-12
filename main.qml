@@ -18,7 +18,7 @@ ApplicationWindow {
         objectName: "main"
         state: "base state"
 
-        signal computationButtonClickedSignal(int age, int weight, int female, bool vegan, bool lactoseFree, int activity)
+        signal computationButtonClickedSignal(int age, int weight, int female, bool vegan, bool lactoseFree, int activity, int days, int startOn)
         signal pathsSignal(string pathToCLingo, string pathToLp)
 
         ageSlider {
@@ -71,7 +71,8 @@ ApplicationWindow {
                 console.log("COmputation button clicked")
                 state = "result state"
                 computationButtonClickedSignal(ageSlider.value, weightSlider.value, genderBox.currentIndex,
-                                               veganCheckbox.checked, lactoseCheckBox.checked, activitySlider.value)
+                                               veganCheckbox.checked, lactoseCheckBox.checked, activitySlider.value,
+                                               dayBox.currentText, startOnBox.currentIndex)
 
             }
             isDefault: true
@@ -126,11 +127,17 @@ ApplicationWindow {
             model: ["male", "female"]
         }
 
-        mealPlanTextArea {
-            objectName: "mealPlan"
-            readOnly: false
+        dayBox {
+            model: [1, 2, 3, 4, 5, 6, 7]
         }
 
+        startOnBox {
+            model: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        }
 
+        mealPlanTextArea {
+            objectName: "mealPlan"
+            readOnly: true
+        }
     } 
 }
