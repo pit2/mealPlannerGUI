@@ -4,7 +4,7 @@
 #include <string>
 #include <QStandardItemModel>
 #include <QQmlContext>
-
+#include <mealplan.h>
 
 
 using namespace std;
@@ -25,6 +25,7 @@ void GUIUpdater::updateGUI(QString answerSets) {
 }
 
 void GUIUpdater::makeMealTable(int days, int firstDay) {
+
     if (mealTable != NULL) {
         qDebug() << "mealTable not null";
         model = new QStandardItemModel(3, days, mealTable);

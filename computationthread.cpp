@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <unistd.h>
 #include <string>
+#include <mealplan.h>
 
 using namespace std;
 
@@ -103,6 +104,7 @@ void ComputationThread::launchClingo(int age, int weight, int isFemale, bool veg
 
           close(PARENT_READ_FD);
     }
+    MealPlan mealPlan = MealPlan(answerSets.toStdString(), days);
     emit resultReady(answerSets);
     emit resultReady(days, startOn);
 }

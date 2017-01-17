@@ -2,7 +2,7 @@
 #define GUIUPDATER_H
 
 #include <QObject>
-#include<string>
+#include <string>
 #include <QQmlApplicationEngine>
 #include <QStandardItemModel>
 #include <QTableWidget>
