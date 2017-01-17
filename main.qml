@@ -20,6 +20,7 @@ ApplicationWindow {
 
         signal computationButtonClickedSignal(int age, int weight, int female, bool vegan, bool lactoseFree, int activity, int days, int startOn)
         signal pathsSignal(string pathToCLingo, string pathToLp)
+        signal mealViewButtonClicked()
 
         ageSlider {
             updateValueWhileDragging: true
@@ -138,6 +139,49 @@ ApplicationWindow {
         mealPlanTextArea {
             objectName: "mealPlan"
             readOnly: true
+        }
+
+        mealViewButton {
+            objectName: "mealViewButton"
+            visible: false
+            enabled: false
+            onClicked: {
+                mealViewButtonClicked()
+                state = "mealPlan state"
+                mealPlanTable.anchors.fill = resultRectangle
+                mealPlanTable.visible = true
+                mealPlanTable.enabled = true
+            }
+        }
+
+        TableView  {
+            id: mealPlanTable
+            objectName: "mealPlanTable"
+            //parent: resultRectangle
+
+            visible: false
+            enabled: false
+            /*TableViewColumn {
+                title: "Monday"
+            }
+            TableViewColumn {
+                title: "Tuesday"
+            }
+            TableViewColumn {
+                title: "Wednesday"
+            }
+            TableViewColumn {
+                title: "Thursday"
+            }
+            TableViewColumn {
+                title: "Friday"
+            }
+            TableViewColumn {
+                title: "Saturday"
+            }
+            TableViewColumn {
+                title: "Sunday"
+            }*/
         }
     } 
 }

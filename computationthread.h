@@ -16,6 +16,7 @@ private:
 
 signals:
     void resultReady(const QString &str);
+    void resultReady(int days, int firstDay);
 
 public slots:
     void launchClingo(int age, int weight, int isFemale, bool vegan, bool lactoseFree, int activity, int days, int startOn);

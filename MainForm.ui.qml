@@ -6,6 +6,10 @@ Item {
     id: page
     width: 640
     height: 480
+    property alias resultRectangle: resultRectangle
+    property alias mealPlanTable: mealPlanTable
+    property alias settingsPopup: settingsPopup
+    property alias mealViewButton: mealViewButton
     property alias dayBox: dayBox
     property alias startOnBox: startOnBox
     property alias busyIndicatorRect: busyIndicatorRect
@@ -326,6 +330,12 @@ Item {
             color: "#ffffff"
             opacity: 0
         }
+
+        TableView {
+            id: mealPlanTable
+            anchors.fill: parent
+            opacity: 0
+        }
     }
 
     Button {
@@ -342,6 +352,15 @@ Item {
         activeFocusOnPress: true
         opacity: 1
         isDefault: true
+    }
+
+    Button {
+        id: mealViewButton
+        x: 32
+        y: 33
+        text: qsTr("Button")
+        visible: false
+        opacity: 0
     }
     states: [
         State {
@@ -444,6 +463,84 @@ Item {
                 height: 35
                 color: "#00000000"
                 border.width: 0
+                opacity: 1
+            }
+
+            PropertyChanges {
+                target: mealViewButton
+                x: 8
+                y: 33
+                text: qsTr("Details")
+                opacity: 1
+            }
+
+            PropertyChanges {
+                target: mealPlanTable
+                visible: false
+            }
+        },
+        State {
+            name: "mealPlan state"
+            PropertyChanges {
+                target: startComputationButton
+                y: 429
+                text: qsTr("Show me food!")
+                anchors.bottomMargin: 25
+                visible: false
+                anchors.horizontalCenterOffset: 6
+            }
+
+            PropertyChanges {
+                target: lpPathInput
+                text: qsTr("Path/To/ClingoApp")
+            }
+
+            PropertyChanges {
+                target: rect
+                visible: false
+            }
+
+            PropertyChanges {
+                target: resultRectangle
+                width: 619
+                height: 363
+                opacity: 1
+                visible: true
+            }
+
+            PropertyChanges {
+                target: configButton
+                visible: false
+            }
+
+            PropertyChanges {
+                target: mealPlanTextArea
+                x: 98
+                y: 61
+                width: 424
+                height: 242
+                visible: false
+                readOnly: true
+            }
+
+            PropertyChanges {
+                target: busyIndicatorRect
+                x: 293
+                y: 369
+                width: 34
+                height: 35
+                color: "#00000000"
+                border.width: 0
+                opacity: 1
+            }
+
+            PropertyChanges {
+                target: mealViewButton
+                text: qsTr("Console")
+            }
+
+            PropertyChanges {
+                target: mealPlanTable
                 opacity: 1
             }
         }
