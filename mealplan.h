@@ -2,6 +2,7 @@
 #define MEALPLAN_H
 
 #include <string>
+#include <map>
 
 using namespace std;
 
@@ -13,11 +14,10 @@ public:
 private:
     int startDay = 0;
     int numOfDays = 1;
-    //static string days[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-    //string breakfast[];
-    //string lunch[];
-    //string dinner[];
+    const string days[7] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    multimap<string, multimap<string,string>> *weeklyPlan; // key is a weekday, value the meal plan (whose key is the time (e.g. breakfast) and the food items
 
+    static int findMealsFor(string str, string time, int startIndex, multimap<string, multimap<string, string> > *weeklyPlan);
 };
 
 #endif // MEALPLAN_H
