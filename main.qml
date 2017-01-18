@@ -4,7 +4,6 @@ import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.2
 import QtQuick.Controls.Styles 1.4
 
-
 ApplicationWindow {
     id: root
     visible: true
@@ -154,18 +153,49 @@ ApplicationWindow {
             }
         }
 
+        ListModel {
+            id: tableData
+            ListElement {
+                time: "Breakfast"
+                monday: "Banana, Cereal, Apples, Coffee, Bagel, Donuts, Toast Hawai"
+                tuesday: "Orange"
+            }
+
+            ListElement {
+                time: "Lunch"
+                monday: "Steak"
+            }
+
+            ListElement {
+                time: "Dinner"
+            }
+        }
+
         TableView  {
             id: mealPlanTable
             objectName: "mealPlanTable"
             //parent: resultRectangle
-
+            model: tableData
             visible: false
             enabled: false
-            /*TableViewColumn {
+
+       //     onMealsGot: {
+
+         //   }
+
+            TableViewColumn {
+                title: "Time"
+                role: "time"
+            }
+
+            TableViewColumn {
                 title: "Monday"
+                role: "monday"
+
             }
             TableViewColumn {
                 title: "Tuesday"
+                role: "tuesday"
             }
             TableViewColumn {
                 title: "Wednesday"
@@ -181,7 +211,7 @@ ApplicationWindow {
             }
             TableViewColumn {
                 title: "Sunday"
-            }*/
+            }
         }
     } 
 }

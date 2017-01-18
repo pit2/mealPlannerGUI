@@ -5,7 +5,8 @@
 #include <string>
 #include <QQmlApplicationEngine>
 #include <QStandardItemModel>
-#include <QTableWidget>
+#include <QTableView>
+#include <mealplan.h>
 
 
 class GUIUpdater : public QObject
@@ -16,14 +17,16 @@ public:
     QQmlApplicationEngine *engine;
     QObject *mealLabel;
     QObject *mealViewButton;
-    QTableWidget *mealTable;
+    QObject *mealTable;
+    MealPlan *mealPlan;
+
 
 private:
     QStandardItemModel *model;
 
 public slots:
     void updateGUI(QString);
-    void makeMealTable(int, int);
+    void makeMealTable(QString answerSets, int, int);
 
 };
 

@@ -2,9 +2,9 @@
 #include <QDebug>
 #include <unistd.h>
 #include <string>
-#include <QStandardItemModel>
 #include <QQmlContext>
 #include <mealplan.h>
+#include <QTableView>
 
 
 using namespace std;
@@ -24,22 +24,21 @@ void GUIUpdater::updateGUI(QString answerSets) {
     }
 }
 
-void GUIUpdater::makeMealTable(int days, int firstDay) {
-
+void GUIUpdater::makeMealTable(QString answerSets, int days, int firstDay) {
+    mealPlan = new MealPlan(answerSets.toStdString(), days);
     if (mealTable != NULL) {
+      //  QTableView *table = (QTableView*) mealTable;
         qDebug() << "mealTable not null";
-        model = new QStandardItemModel(3, days, mealTable);
+       // MealPlan model = new MealPlan(answerSets.toStdString(), days);
     //    for (int i = 0; i < days; i++) {
-            model->setHorizontalHeaderItem(0, new QStandardItem(QString("Monday")));
+     //       model->setHorizontalHeaderItem(0, new QStandardItem(QString("Monday")));
      //   }
             QStandardItem *firstRow = new QStandardItem(QString("ColumnValue"));
-            model->setItem(0,0,firstRow);
+         //   model->setItem(0,0,firstRow);
         QQmlContext *context = engine->rootContext();
-        context->setContextProperty("contextModel", model);
-        //mealTable->setProperty("model", context->contextProperty("contextModel"));
-     //   mealTable->setModel(model);
-        mealTable->setVisible(true);
-
+      //  context->setContextProperty("contextModel", model);
+      //  mealTable->setProperty("model", context->contextProperty("contextModel"));
+    //    table->setModel(mealPlan);
 
     } else {
         qDebug() << "mealTable is null";
