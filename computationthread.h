@@ -16,7 +16,7 @@ private:
     QString pathToLp = "/Users/martin/Programmierung/ASP/Praktikum/";
 
 signals:
-    void resultReady(const QString &str);
+    void resultReady(const QString &str, int days);
     void resultReady(const QString &answerSets, int days, int firstDay);
 
 public slots:

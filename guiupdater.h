@@ -19,13 +19,14 @@ public:
     QObject *mealViewButton;
     QObject *mealTable;
     MealPlan *mealPlan;
+    void reformatOutput();
 
 
 private:
     QStandardItemModel *model;
 
 public slots:
-    void updateGUI(QString);
+    void updateGUI(QString, int);
     void makeMealTable(QString answerSets, int, int);
 
 };

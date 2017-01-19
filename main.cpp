@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
     QObject::connect(main, SIGNAL(computationButtonClickedSignal(int,int,int,bool,bool,int,int,int)), &compThread, SLOT(launchClingo(int,int,int,bool,bool,int,int,int)));
     QObject::connect(main, SIGNAL(pathsSignal(QString, QString)), &compThread, SLOT(setPaths(QString, QString)));
-    QObject::connect(&compThread, SIGNAL(resultReady(QString)), &updater, SLOT(updateGUI(QString)));
+    QObject::connect(&compThread, SIGNAL(resultReady(QString, int)), &updater, SLOT(updateGUI(QString, int)));
     QObject::connect(&compThread, SIGNAL(resultReady(QString, int,int)), &updater, SLOT(makeMealTable(QString, int,int)));
     updater.mealLabel = main->findChild<QObject*>("mealPlan");
     updater.mealViewButton = main->findChild<QObject*>("mealViewButton");

@@ -16,12 +16,12 @@ MealPlan::MealPlan(string str, int numberOfDays)
     findMealsFor(str, "dinner", index, weeklyPlan);
 
     // DEBUG Output
-    for (it2=weeklyPlan->begin(); it2!=weeklyPlan->end(); ++it2) {
+ /*   for (it2=weeklyPlan->begin(); it2!=weeklyPlan->end(); ++it2) {
         qDebug() << "On " << QString::fromStdString((*it2).first);
         for (it = (*it2).second.begin(); it != (*it2).second.end(); ++it) {
             qDebug() << "eat for " << QString::fromStdString((*it).first) << " " << QString::fromStdString((*it).second);
         }
-    }
+    }*/
 }
 
 int MealPlan::findMealsFor(string str, string time, int startIndex, multimap<string,multimap<string,string>> *weeklyPlan) {
@@ -41,7 +41,6 @@ int MealPlan::findMealsFor(string str, string time, int startIndex, multimap<str
         higher = str.find("\"", lower + 1); // find second "
         day = str.substr(lower + 1, higher - lower - 1); // extract weekday
         if (!prevDay.empty() && prevDay != day) { // add partial plan (e.g. breakfast on a given day) to weeklyPlan
-            qDebug() << "Inserting into weeklyPlan on day " << QString::fromStdString(prevDay);
             weeklyPlan->insert(pair<string,multimap<string,string>>(prevDay, partialPlan));
             partialPlan.clear();
             it = partialPlan.begin();
@@ -59,7 +58,7 @@ int MealPlan::findMealsFor(string str, string time, int startIndex, multimap<str
     qDebug() << "iterating from within findMealsFor";
 
   /*  multimap<string,string>::iterator it3;
-    map<string,multimap<string,string>>::iterator it2;
+    multimap<string,multimap<string,string>>::iterator it2;
     for (it2=weeklyPlan->begin(); it2 != weeklyPlan->end(); ++it2) {
         qDebug() << "On " << QString::fromStdString((*it2).first);
         for (it3 = (*it2).second.begin(); it3 != (*it2).second.end(); ++it3) {
@@ -69,4 +68,42 @@ int MealPlan::findMealsFor(string str, string time, int startIndex, multimap<str
     } */
 
     return higher;
+}
+
+string MealPlan::toString() {
+    string str;
+    multimap<string,multimap<string,string>>::iterator itDays;
+    multimap<string,string>::iterator itFood;
+    string day = "";
+    string time = "";
+    for (itDays=weeklyPlan->begin(); itDays!=weeklyPlan->end(); ++itDays) {
+        if (day != (*itDays).first) {
+            if (day != "") {
+                str += "\n\n";
+            }
+            day = (*itDays).first;
+            str += "##### ";
+            str += (*itDays).first;
+            str += " #####\n";
+        }
+        for (itFood = (*itDays).second.begin(); itFood != (*itDays).second.end(); ++itFood) {
+            if (time != (*itFood).first) {
+                str += "\n";
+                time = (*itFood).first;
+                str += (*itFood).first;
+                str += ": ";
+            } else {
+              //  str += ", ";
+            }
+            str += (*itFood).second;
+            str += "\n";
+        }
+
+    }
+    return str;
+
+}
+
+pair<multimap<string,multimap<string,string>>::iterator,multimap<string,multimap<string,string>>::iterator>  MealPlan::rangeOnDay(string day) {
+    return weeklyPlan->equal_range(day);
 }

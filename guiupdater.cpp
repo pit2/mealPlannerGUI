@@ -13,19 +13,23 @@ using namespace std;
 GUIUpdater::GUIUpdater(QObject *parent) : QObject(parent) {
 }
 
-void GUIUpdater::updateGUI(QString answerSets) {
+void GUIUpdater::updateGUI(QString answerSets, int days) {
     if (mealLabel != NULL) {
-        mealLabel->setProperty("text", answerSets);
+     //   mealLabel->setProperty("text", answerSets);
+        mealPlan = new MealPlan(answerSets.toStdString(), days);
+        QString str = QString::fromStdString(mealPlan->toString());
+        mealLabel->setProperty("text", str);
     }
     if (mealViewButton != NULL) {
-        mealViewButton->setProperty("visible", true);
-        mealViewButton->setProperty("enabled", true);
+        mealViewButton->setProperty("visible", false);
+        mealViewButton->setProperty("enabled", false);
         mealViewButton->setProperty("text", "View meal plan");
     }
 }
 
 void GUIUpdater::makeMealTable(QString answerSets, int days, int firstDay) {
-    mealPlan = new MealPlan(answerSets.toStdString(), days);
+   // mealPlan = new MealPlan(answerSets.toStdString(), days);
+   // mealPlan->toString();
     if (mealTable != NULL) {
       //  QTableView *table = (QTableView*) mealTable;
         qDebug() << "mealTable not null";
@@ -43,4 +47,8 @@ void GUIUpdater::makeMealTable(QString answerSets, int days, int firstDay) {
     } else {
         qDebug() << "mealTable is null";
     }
+}
+
+void GUIUpdater::reformatOutput() {
+
 }

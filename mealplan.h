@@ -10,6 +10,7 @@ class MealPlan
 {
 public:
     MealPlan(string str, int numberOfDays);
+    string toString();
 
 private:
     int startDay = 0;
@@ -18,6 +19,8 @@ private:
     multimap<string, multimap<string,string>> *weeklyPlan; // key is a weekday, value the meal plan (whose key is the time (e.g. breakfast) and the food items
 
     static int findMealsFor(string str, string time, int startIndex, multimap<string, multimap<string, string> > *weeklyPlan);
+    pair<multimap<string,multimap<string,string>>::iterator,multimap<string,multimap<string,string>>::iterator>  rangeOnDay(string day);
+
 };
 
 #endif // MEALPLAN_H

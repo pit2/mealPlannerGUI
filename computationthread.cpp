@@ -105,6 +105,6 @@ void ComputationThread::launchClingo(int age, int weight, int isFemale, bool veg
           close(PARENT_READ_FD);
     }
 
-    emit resultReady(answerSets);
+    emit resultReady(answerSets, days);
     emit resultReady(answerSets, days, startOn);
 }
