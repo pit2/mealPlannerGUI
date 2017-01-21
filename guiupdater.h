@@ -7,7 +7,7 @@
 #include <QStandardItemModel>
 #include <QTableView>
 #include <mealplan.h>
-
+#include <computationthread.h>
 
 class GUIUpdater : public QObject
 {
@@ -19,6 +19,10 @@ public:
     QObject *mealViewButton;
     QObject *mealTable;
     MealPlan *mealPlan;
+    QObject *pathToClingoLabel;
+    QObject *pathToLpLabel;
+    ComputationThread *compThread;
+
     void reformatOutput();
 
 
@@ -28,6 +32,7 @@ private:
 public slots:
     void updateGUI(QString, int);
     void makeMealTable(QString answerSets, int, int);
+    void updatePaths();
 
 };
 

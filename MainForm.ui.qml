@@ -6,6 +6,7 @@ Item {
     id: page
     width: 640
     height: 480
+    property alias loadButton: loadButton
     property alias resultRectangle: resultRectangle
     property alias mealPlanTable: mealPlanTable
     property alias settingsPopup: settingsPopup
@@ -362,6 +363,23 @@ Item {
         visible: false
         opacity: 0
     }
+
+    Button {
+        id: loadButton
+        x: 542
+        y: 22
+        width: 32
+        height: 32
+        text: ""
+        anchors.rightMargin: 66
+        anchors.right: parent.right
+        anchors.topMargin: 22
+        activeFocusOnPress: true
+        isDefault: true
+        anchors.top: parent.top
+        iconSource: "nil"
+        opacity: 1
+    }
     states: [
         State {
             name: "config state"
@@ -398,16 +416,21 @@ Item {
 
             PropertyChanges {
                 target: lpPathInput
-                text: qsTr("/Users/martin/Programmierung/ASP/Praktikum/")
+                text: qsTr("")
             }
 
             PropertyChanges {
                 target: clingoPathInput
-                text: qsTr("/Applications/clingo-4.5.4-macos-10.9/clingo")
+                text: qsTr("")
             }
 
             PropertyChanges {
                 target: configButton
+                visible: false
+            }
+
+            PropertyChanges {
+                target: loadButton
                 visible: false
             }
         },

@@ -10,10 +10,12 @@ class ComputationThread : public QObject
     Q_OBJECT
 public:
     ComputationThread();
+    QString getPathToClingo();
+    QString getPathToLp();
 
 private:
-    QString pathToClingo = "/Applications/clingo-4.5.4-macos-10.9/clingo";
-    QString pathToLp = "/Users/martin/Programmierung/ASP/Praktikum/";
+    QString pathToClingo;
+    QString pathToLp;
 
 signals:
     void resultReady(const QString &str, int days);

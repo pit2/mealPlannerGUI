@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string>
 #include <mealplan.h>
+#include <QSettings>
 
 using namespace std;
 
@@ -25,12 +26,17 @@ int pipes[NUM_PIPES][2];
 
 ComputationThread::ComputationThread()
 {
-
+    QSettings settings("martin astray", "MealPlanner");
+    pathToClingo = settings.value("pathToClingo", "/Applications/clingo-4.5.4-macos-10.9/clingo").toString();
+    pathToLp = settings.value("pathToLp", "/Users/martin/Programmierung/ASP/Praktikum/").toString();
 }
 
 void ComputationThread::setPaths(QString clingoPath, QString lpPath) {
+    QSettings settings("martin astray", "MealPlanner");
     pathToClingo = clingoPath;
     pathToLp = lpPath;
+    settings.setValue("pathToClingo", pathToClingo);
+    settings.setValue("pathToLp", pathToLp);
 }
 
 void ComputationThread::launchClingo(int age, int weight, int isFemale, bool vegan, bool lactoseFree, int activity, int days, int startOn) {
@@ -107,4 +113,12 @@ void ComputationThread::launchClingo(int age, int weight, int isFemale, bool veg
 
     emit resultReady(answerSets, days);
     emit resultReady(answerSets, days, startOn);
+}
+
+QString ComputationThread::getPathToClingo() {
+    return pathToClingo;
+}
+
+QString ComputationThread::getPathToLp() {
+    return pathToLp;
 }

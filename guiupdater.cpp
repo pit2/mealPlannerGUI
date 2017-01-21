@@ -52,3 +52,8 @@ void GUIUpdater::makeMealTable(QString answerSets, int days, int firstDay) {
 void GUIUpdater::reformatOutput() {
 
 }
+
+void GUIUpdater::updatePaths() {
+    pathToClingoLabel->setProperty("text", compThread->getPathToClingo());
+    pathToLpLabel->setProperty("text", compThread->getPathToLp());
+}

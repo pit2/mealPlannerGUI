@@ -20,6 +20,7 @@ ApplicationWindow {
         signal computationButtonClickedSignal(int age, int weight, int female, bool vegan, bool lactoseFree, int activity, int days, int startOn)
         signal pathsSignal(string pathToCLingo, string pathToLp)
         signal mealViewButtonClicked()
+        signal settingsButtonClicked()
 
         ageSlider {
             updateValueWhileDragging: true
@@ -93,7 +94,16 @@ ApplicationWindow {
 
             onClicked: {
                 state = "config state"
+                settingsButtonClicked()
             }
+        }
+
+        clingoPathInput {
+            objectName: "clingoPathInput"
+        }
+
+        lpPathInput {
+            objectName: "lpPathInput"
         }
 
         veganCheckbox {
@@ -212,6 +222,35 @@ ApplicationWindow {
             TableViewColumn {
                 title: "Sunday"
             }
+        }
+
+        loadButton {
+            iconSource: "fileLoadIcon32.png"
+            style: ButtonStyle {
+                background: Rectangle {
+                    border.width: 0
+                    implicitHeight: 32
+                    implicitWidth: 32
+                    color: "transparent"
+                }
+            }
+            onClicked: fileDialog.open()
+        }
+
+        FileDialog {
+            id: fileDialog
+            sidebarVisible: true
+            title: "Please choose a meal plan to view."
+            folder: shortcuts.home
+            onAccepted: {
+                console.log("You chose: " + fileDialog.fileUrls)
+                close()
+            }
+            onRejected: {
+                console.log("Canceled")
+                close()
+            }
+          //  Component.onCompleted: visible = true
         }
     } 
 }
