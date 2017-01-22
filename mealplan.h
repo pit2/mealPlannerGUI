@@ -12,6 +12,7 @@ public:
     MealPlan(string str, int numberOfDays);
     string toString();
 
+
 private:
     int startDay = 0;
     int numOfDays = 1;

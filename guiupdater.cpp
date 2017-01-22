@@ -5,7 +5,10 @@
 #include <QQmlContext>
 #include <mealplan.h>
 #include <QTableView>
-
+#include <QFile>
+#include <QDataStream>
+#include <QDir>
+#include <QUrl>
 
 using namespace std;
 
@@ -19,6 +22,8 @@ void GUIUpdater::updateGUI(QString answerSets, int days) {
         mealPlan = new MealPlan(answerSets.toStdString(), days);
         QString str = QString::fromStdString(mealPlan->toString());
         mealLabel->setProperty("text", str);
+
+
     }
     if (mealViewButton != NULL) {
         mealViewButton->setProperty("visible", false);
@@ -49,8 +54,26 @@ void GUIUpdater::makeMealTable(QString answerSets, int days, int firstDay) {
     }
 }
 
-void GUIUpdater::reformatOutput() {
+void GUIUpdater::writeMealPlanToFile() {
+    QDir dir = QDir::home();
+    QFile file(dir.filePath("mealplan.mp"));
+    if (!file.open(QIODevice::WriteOnly)) {
+        qDebug() << "Could not create file!";
+    }
+    QDataStream toFile(&file);
+    toFile << QString::fromStdString(mealPlan->toString());
+    file.close();
+}
 
+void GUIUpdater::readMealPlanFromFile(QUrl url) {
+    QFile file(url.toLocalFile());
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "Failed to read file";
+    }
+    QDataStream fromFile(&file);
+    QString str;
+    fromFile >> str;
+    mealLabel->setProperty("text", str);
 }
 
 void GUIUpdater::updatePaths() {

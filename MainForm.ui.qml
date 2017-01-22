@@ -6,6 +6,8 @@ Item {
     id: page
     width: 640
     height: 480
+    property alias saveMealPlanButton: saveMealPlanButton
+    property alias backToMainButton: backToMainButton
     property alias loadButton: loadButton
     property alias resultRectangle: resultRectangle
     property alias mealPlanTable: mealPlanTable
@@ -380,6 +382,21 @@ Item {
         iconSource: "nil"
         opacity: 1
     }
+
+    Button {
+        id: saveMealPlanButton
+        x: 526
+        text: qsTr("Button")
+        opacity: 0
+    }
+
+    Button {
+        id: backToMainButton
+        x: 462
+        y: 454
+        text: qsTr("Button")
+        opacity: 0
+    }
     states: [
         State {
             name: "config state"
@@ -500,6 +517,24 @@ Item {
             PropertyChanges {
                 target: mealPlanTable
                 visible: false
+            }
+
+            PropertyChanges {
+                target: saveMealPlanButton
+                x: 552
+                y: 429
+                text: qsTr("Save")
+                anchors.topMargin: 429
+                anchors.rightMargin: 24
+                opacity: 1
+            }
+
+            PropertyChanges {
+                target: backToMainButton
+                x: 481
+                y: 429
+                text: qsTr("Back")
+                opacity: 1
             }
         },
         State {

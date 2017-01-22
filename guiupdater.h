@@ -8,6 +8,7 @@
 #include <QTableView>
 #include <mealplan.h>
 #include <computationthread.h>
+#include <QUrl>
 
 class GUIUpdater : public QObject
 {
@@ -33,6 +34,8 @@ public slots:
     void updateGUI(QString, int);
     void makeMealTable(QString answerSets, int, int);
     void updatePaths();
+    void writeMealPlanToFile();
+    void readMealPlanFromFile(QUrl);
 
 };
 

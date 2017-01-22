@@ -21,6 +21,8 @@ ApplicationWindow {
         signal pathsSignal(string pathToCLingo, string pathToLp)
         signal mealViewButtonClicked()
         signal settingsButtonClicked()
+        signal saveMealPlanButtonClicked()
+        signal fileSelected(url fileUrl)
 
         ageSlider {
             updateValueWhileDragging: true
@@ -71,6 +73,7 @@ ApplicationWindow {
             onClicked: {
                 console.log("COmputation button clicked")
                 state = "result state"
+                saveMealPlanButton.enabled = true
                 computationButtonClickedSignal(ageSlider.value, weightSlider.value, genderBox.currentIndex,
                                                veganCheckbox.checked, lactoseCheckBox.checked, activitySlider.value,
                                                dayBox.currentText, startOnBox.currentIndex)
@@ -163,6 +166,14 @@ ApplicationWindow {
             }
         }
 
+        backToMainButton {
+            onClicked: state = ""
+        }
+
+        saveMealPlanButton {
+            onClicked: saveMealPlanButtonClicked()
+        }
+
         ListModel {
             id: tableData
             ListElement {
@@ -244,6 +255,10 @@ ApplicationWindow {
             folder: shortcuts.home
             onAccepted: {
                 console.log("You chose: " + fileDialog.fileUrls)
+                page.fileSelected(fileDialog.fileUrl)
+                page.state = "result state"
+                page.saveMealPlanButton.enabled = false
+          //      page.saveMealPlanButton
                 close()
             }
             onRejected: {
