@@ -9,7 +9,7 @@
 #include <QDataStream>
 #include <QDir>
 #include <QUrl>
-
+#include <QDateTime>
 using namespace std;
 
 
@@ -55,8 +55,9 @@ void GUIUpdater::makeMealTable(QString answerSets, int days, int firstDay) {
 }
 
 void GUIUpdater::writeMealPlanToFile() {
+    QString name = QDateTime::currentDateTime().toString();
     QDir dir = QDir::home();
-    QFile file(dir.filePath("mealplan.mp"));
+    QFile file(dir.filePath(name + ".mp"));
     if (!file.open(QIODevice::WriteOnly)) {
         qDebug() << "Could not create file!";
     }

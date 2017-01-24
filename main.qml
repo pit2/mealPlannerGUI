@@ -71,7 +71,7 @@ ApplicationWindow {
 
             }*/
             onClicked: {
-                console.log("COmputation button clicked")
+                mealPlanTextArea.text = "Preparing your meal plan...\n\nThis may take a while."
                 state = "result state"
                 saveMealPlanButton.enabled = true
                 computationButtonClickedSignal(ageSlider.value, weightSlider.value, genderBox.currentIndex,
@@ -128,7 +128,6 @@ ApplicationWindow {
         saveButton {
             onClicked: {
                 if (page.state == "config state") {
-                    console.log("Clicked save button - path is: " + clingoPathInput.text)
                     page.state = ""
                     pathsSignal(clingoPathInput.text, lpPathInput.text)
                 }
@@ -171,7 +170,11 @@ ApplicationWindow {
         }
 
         saveMealPlanButton {
-            onClicked: saveMealPlanButtonClicked()
+            onClicked: {
+                saveMealPlanButtonClicked()
+                saveMealPlanButton.enabled = false
+                saveMealPlanButton.text = "Saved!"
+            }
         }
 
         ListModel {
@@ -250,6 +253,7 @@ ApplicationWindow {
 
         FileDialog {
             id: fileDialog
+            objectName: "fileDialogue"
             sidebarVisible: true
             title: "Please choose a meal plan to view."
             folder: shortcuts.home
@@ -258,7 +262,6 @@ ApplicationWindow {
                 page.fileSelected(fileDialog.fileUrl)
                 page.state = "result state"
                 page.saveMealPlanButton.enabled = false
-          //      page.saveMealPlanButton
                 close()
             }
             onRejected: {
