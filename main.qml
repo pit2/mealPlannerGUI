@@ -27,6 +27,9 @@ ApplicationWindow {
                 food6.visible = false
                 food7.visible = false
             }
+            if (state == "result state") {
+                saveMealPlanButton.enabled = true
+            }
         }
 
         signal computationButtonClickedSignal(int age, int weight, int female, bool vegan, bool lactoseFree, int activity, int days, int startOn)
@@ -73,24 +76,15 @@ ApplicationWindow {
 
         startComputationButton {
             iconSource: "cauldron.png"
-           /* style: ButtonStyle {
-                background: Rectangle {
-                    border.width: 0
-                    implicitHeight: 128
-                    implicitWidth: 128
-                    color: "transparent"
-                }
-
-            }*/
             onClicked: {
                 mealPlanTextArea.text = "Preparing your meal plan...\n\nThis may take a while."
                 state = "waiting state"
                 bouncingFood1.start()
-                saveMealPlanButton.enabled = true
+                //saveMealPlanButton.enabled = true
+                angryBubbleImage.visible = false
                 computationButtonClickedSignal(ageSlider.value, weightSlider.value, genderBox.currentIndex,
                                                veganCheckbox.checked, lactoseCheckBox.checked, activitySlider.value,
                                                dayBox.currentText, startOnBox.currentIndex)
-
             }
             isDefault: true
         }
@@ -288,7 +282,6 @@ ApplicationWindow {
                 console.log("Canceled")
                 close()
             }
-          //  Component.onCompleted: visible = true
         }
 
         angryBubbleImage {
@@ -298,9 +291,14 @@ ApplicationWindow {
                     to: 1.0
                     duration: 200
                     easing.type: Easing.OutBounce
+                    onStarted: {
+                        heart1.visible = false
+                        heart2.visible = false
+                        heart3.visible = false
+                        floatingHearts.stop()
+                    }
                 }
             }
-
         }
 
         heartImage1 {
@@ -317,6 +315,19 @@ ApplicationWindow {
             id: floatingHearts
             loops: 3
             running: true
+            alwaysRunToEnd: false
+            onStarted: {
+                heart1.visible = true
+                heart2.visible = true
+                heart3.visible = true
+            }
+
+            onStopped: {
+                heart1.visible = false
+                heart2.visible = false
+                heart3.visible = false
+            }
+
             PathAnimation {
                 path: Path {
                     startX: 100
@@ -449,6 +460,28 @@ ApplicationWindow {
             y: 350
         }
 
+        Path {
+            id: bounceFromLeft
+            startX: 0
+            startY: 350
+            PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+            PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+            PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+            PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+            PathArc {radiusX: 30; radiusY: 60; relativeX: 60; relativeY: -10}
+        }
+
+        Path {
+            id: bounceFromRight
+            startX: 640
+            startY: 350
+            PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+            PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+            PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+            PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+            PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 60; relativeX: -80; relativeY: -10}
+        }
+
         SequentialAnimation {
             id: bouncingFood1
             onStarted: {
@@ -466,15 +499,7 @@ ApplicationWindow {
             PathAnimation {
                 target: food1
                 duration: 1000
-                path: Path {
-                    startX: 0
-                    startY: 350
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 60; relativeX: 60; relativeY: -10}
-                }
+                path: bounceFromLeft
             }
             NumberAnimation {
                 target: food1
@@ -498,15 +523,7 @@ ApplicationWindow {
             PathAnimation {
                 target: food2
                 duration: 1000
-                path: Path {
-                    startX: 640
-                    startY: 350
-                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
-                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
-                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
-                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
-                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 60; relativeX: -80; relativeY: -10}
-                }
+                path: bounceFromRight
             }
             NumberAnimation {
                 target: food2
@@ -528,15 +545,7 @@ ApplicationWindow {
             PathAnimation {
                 target: food3
                 duration: 1000
-                path: Path {
-                    startX: 0
-                    startY: 350
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 60; relativeX: 60; relativeY: -10}
-                }
+                path: bounceFromLeft
             }
             NumberAnimation {
                 target: food3
@@ -558,15 +567,7 @@ ApplicationWindow {
             PathAnimation {
                 target: food4
                 duration: 1000
-                path: Path {
-                    startX: 640
-                    startY: 350
-                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
-                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
-                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
-                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
-                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 60; relativeX: -80; relativeY: -10}
-                }
+                path: bounceFromRight
             }
             NumberAnimation {
                 target: food4
@@ -588,15 +589,7 @@ ApplicationWindow {
             PathAnimation {
                 target: food5
                 duration: 1000
-                path: Path {
-                    startX: 0
-                    startY: 350
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 60; relativeX: 60; relativeY: -10}
-                }
+                path: bounceFromLeft
             }
             NumberAnimation {
                 target: food5
@@ -618,15 +611,7 @@ ApplicationWindow {
             PathAnimation {
                 target: food6
                 duration: 1000
-                path: Path {
-                    startX: 640
-                    startY: 350
-                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
-                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
-                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
-                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
-                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 60; relativeX: -80; relativeY: -10}
-                }
+                path: bounceFromRight
             }
             NumberAnimation {
                 target: food6
@@ -648,15 +633,7 @@ ApplicationWindow {
             PathAnimation {
                 target: food7
                 duration: 1000
-                path: Path {
-                    startX: 0
-                    startY: 350
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
-                    PathArc {radiusX: 30; radiusY: 60; relativeX: 60; relativeY: -10}
-                }
+                path: bounceFromLeft
             }
             NumberAnimation {
                 target: food7

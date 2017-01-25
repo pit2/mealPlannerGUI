@@ -65,9 +65,9 @@ Item {
         iconSource: "cauldron.png"
         anchors.horizontalCenterOffset: 0
         activeFocusOnPress: true
-        isDefault: false
+        isDefault: true
         tooltip: "Compute a meal plan using the current settings."
-        checkable: true
+        checkable: false
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 18
         anchors.horizontalCenter: parent.horizontalCenter
@@ -468,7 +468,7 @@ Item {
         y: 334
         width: 100
         height: 100
-        source: "qrc:/qtquickplugin/images/template_image.png"
+        source: "cauldron.png"
         opacity: 0
     }
     states: [
@@ -654,6 +654,8 @@ Item {
 
             PropertyChanges {
                 target: heartImage1
+                sourceSize.height: 24
+                sourceSize.width: 24
                 visible: false
             }
         },
@@ -870,6 +872,8 @@ Item {
                 x: 256
                 width: 128
                 height: 128
+                sourceSize.height: 128
+                sourceSize.width: 128
                 source: "cauldron.png"
                 opacity: 1
             }
