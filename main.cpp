@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
     QObject::connect(&compThread, SIGNAL(resultReady(QString, int,int)), &updater, SLOT(makeMealTable(QString, int,int)));
     QObject::connect(main, SIGNAL(saveMealPlanButtonClicked()), &updater, SLOT(writeMealPlanToFile()));
     QObject::connect(main, SIGNAL(fileSelected(QUrl)), &updater, SLOT(readMealPlanFromFile(QUrl)));
+    updater.main = main;
     updater.mealLabel = main->findChild<QObject*>("mealPlan");
     updater.mealViewButton = main->findChild<QObject*>("mealViewButton");
     updater.mealTable = main->findChild<QObject*>("mealPlanTable");

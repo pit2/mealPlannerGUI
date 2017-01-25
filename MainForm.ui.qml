@@ -62,6 +62,7 @@ Item {
         width: 128
         height: 128
         text: qsTr("")
+        iconSource: "cauldron.png"
         anchors.horizontalCenterOffset: 0
         activeFocusOnPress: true
         isDefault: false
@@ -460,6 +461,16 @@ Item {
         sourceSize.width: 24
         sourceSize.height: 24
     }
+
+    Image {
+        id: cauldronImage
+        x: 276
+        y: 334
+        width: 100
+        height: 100
+        source: "qrc:/qtquickplugin/images/template_image.png"
+        opacity: 0
+    }
     states: [
         State {
             name: "config state"
@@ -518,6 +529,21 @@ Item {
                 target: animalImage
                 visible: false
             }
+
+            PropertyChanges {
+                target: heartImage1
+                visible: false
+            }
+
+            PropertyChanges {
+                target: heartImage2
+                visible: false
+            }
+
+            PropertyChanges {
+                target: heartImage3
+                visible: false
+            }
         },
         State {
             name: "result state"
@@ -543,6 +569,8 @@ Item {
 
             PropertyChanges {
                 target: resultRectangle
+                x: 11
+                y: 60
                 width: 619
                 height: 363
                 visible: true
@@ -560,6 +588,10 @@ Item {
                 y: 61
                 width: 424
                 height: 242
+                anchors.rightMargin: 0
+                anchors.bottomMargin: 0
+                anchors.leftMargin: 1
+                anchors.topMargin: 0
                 readOnly: true
             }
 
@@ -609,6 +641,21 @@ Item {
                 target: animalImage
                 visible: false
             }
+
+            PropertyChanges {
+                target: heartImage3
+                visible: false
+            }
+
+            PropertyChanges {
+                target: heartImage2
+                visible: false
+            }
+
+            PropertyChanges {
+                target: heartImage1
+                visible: false
+            }
         },
         State {
             name: "mealPlan state"
@@ -633,6 +680,8 @@ Item {
 
             PropertyChanges {
                 target: resultRectangle
+                x: 13
+                y: 60
                 width: 619
                 height: 363
                 opacity: 1
@@ -678,6 +727,151 @@ Item {
             PropertyChanges {
                 target: animalImage
                 visible: false
+            }
+
+            PropertyChanges {
+                target: heartImage3
+                visible: false
+            }
+
+            PropertyChanges {
+                target: heartImage2
+                visible: false
+            }
+
+            PropertyChanges {
+                target: heartImage1
+                visible: false
+            }
+        },
+        State {
+            name: "waiting state"
+            PropertyChanges {
+                target: startComputationButton
+                x: 256
+                y: 334
+                text: qsTr("Show me food!")
+                anchors.bottomMargin: 25
+                anchors.horizontalCenterOffset: 6
+                visible: false
+            }
+
+            PropertyChanges {
+                target: lpPathInput
+                text: qsTr("Path/To/ClingoApp")
+            }
+
+            PropertyChanges {
+                target: rect
+                visible: false
+            }
+
+            PropertyChanges {
+                target: resultRectangle
+                x: 8
+                y: 33
+                width: 619
+                height: 224
+                opacity: 1
+                visible: true
+            }
+
+            PropertyChanges {
+                target: configButton
+                enabled: false
+                visible: false
+            }
+
+            PropertyChanges {
+                target: mealPlanTextArea
+                x: 98
+                y: 61
+                width: 424
+                height: 242
+                anchors.bottomMargin: 0
+                readOnly: true
+                anchors.rightMargin: 0
+                anchors.leftMargin: 1
+                anchors.topMargin: 0
+            }
+
+            PropertyChanges {
+                target: busyIndicatorRect
+                x: 293
+                y: 369
+                width: 34
+                height: 35
+                color: "#00000000"
+                border.width: 0
+                opacity: 1
+            }
+
+            PropertyChanges {
+                target: mealViewButton
+                x: 8
+                y: 33
+                text: qsTr("Details")
+                opacity: 1
+            }
+
+            PropertyChanges {
+                target: mealPlanTable
+                visible: false
+            }
+
+            PropertyChanges {
+                target: saveMealPlanButton
+                x: 552
+                y: 429
+                text: qsTr("Save")
+                enabled: false
+                visible: false
+                anchors.rightMargin: 24
+                opacity: 1
+                anchors.topMargin: 429
+            }
+
+            PropertyChanges {
+                target: backToMainButton
+                x: 481
+                y: 429
+                text: qsTr("Back")
+                opacity: 1
+            }
+
+            PropertyChanges {
+                target: animalImage
+                visible: false
+            }
+
+            PropertyChanges {
+                target: heartImage3
+                visible: false
+            }
+
+            PropertyChanges {
+                target: heartImage2
+                visible: false
+            }
+
+            PropertyChanges {
+                target: heartImage1
+                visible: false
+            }
+
+            PropertyChanges {
+                target: loadButton
+                enabled: false
+                visible: false
+            }
+
+            PropertyChanges {
+                target: cauldronImage
+                x: 256
+                width: 128
+                height: 128
+                source: "cauldron.png"
+                opacity: 1
             }
         }
     ]

@@ -16,6 +16,7 @@ class GUIUpdater : public QObject
 public:
     explicit GUIUpdater(QObject *parent = 0);
     QQmlApplicationEngine *engine;
+    QObject *main; // reference to main.qml
     QObject *mealLabel;
     QObject *mealViewButton;
     QObject *mealTable;

@@ -17,6 +17,7 @@ GUIUpdater::GUIUpdater(QObject *parent) : QObject(parent) {
 }
 
 void GUIUpdater::updateGUI(QString answerSets, int days) {
+    main->setProperty("state", "result state");
     if (mealLabel != NULL) {
      //   mealLabel->setProperty("text", answerSets);
         mealPlan = new MealPlan(answerSets.toStdString(), days);

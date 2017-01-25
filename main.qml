@@ -17,6 +17,18 @@ ApplicationWindow {
         objectName: "main"
         state: "base state"
 
+        onStateChanged: {
+            if (state != "waiting state") {
+                food1.visible = false
+                food2.visible = false
+                food3.visible = false
+                food4.visible = false
+                food5.visible = false
+                food6.visible = false
+                food7.visible = false
+            }
+        }
+
         signal computationButtonClickedSignal(int age, int weight, int female, bool vegan, bool lactoseFree, int activity, int days, int startOn)
         signal pathsSignal(string pathToCLingo, string pathToLp)
         signal mealViewButtonClicked()
@@ -72,7 +84,8 @@ ApplicationWindow {
             }*/
             onClicked: {
                 mealPlanTextArea.text = "Preparing your meal plan...\n\nThis may take a while."
-                state = "result state"
+                state = "waiting state"
+                bouncingFood1.start()
                 saveMealPlanButton.enabled = true
                 computationButtonClickedSignal(ageSlider.value, weightSlider.value, genderBox.currentIndex,
                                                veganCheckbox.checked, lactoseCheckBox.checked, activitySlider.value,
@@ -369,6 +382,288 @@ ApplicationWindow {
                 to: 0
                 duration: 2500
                 easing.type: Easing.InExpo
+            }
+        }
+
+        Image {
+            id: food1
+            visible: false
+            source: "banana64.png"
+            width: 32
+            height: 32
+            x: 0
+            y: 350
+        }
+        Image {
+            id: food2
+            visible: false
+            source: "apple64.png"
+            width: 32
+            height: 32
+            x: 640
+            y: 350
+        }
+        Image {
+            id: food3
+            visible: false
+            source: "burger64.png"
+            width: 32
+            height: 32
+            x: 0
+            y: 350
+        }
+        Image {
+            id: food4
+            visible: false
+            source: "cookie64.png"
+            width: 32
+            height: 32
+            x: 640
+            y: 350
+        }
+        Image {
+            id: food5
+            visible: false
+            source: "pie64.png"
+            width: 32
+            height: 32
+            x: 0
+            y: 350
+        }
+        Image {
+            id: food6
+            visible: false
+            source: "soda64.png"
+            width: 32
+            height: 32
+            x: 640
+            y: 350
+        }
+        Image {
+            id: food7
+            visible: false
+            source: "strawberry64.png"
+            width: 32
+            height: 32
+            x: 0
+            y: 350
+        }
+
+        SequentialAnimation {
+            id: bouncingFood1
+            onStarted: {
+                food1.opacity = 1
+                food1.visible = true
+            }
+            onStopped: {
+                if (page.state == "waiting state") {
+                    food2.visible = true
+                    food2.opacity = true
+                    bouncingFood2.start()
+                }
+            }
+
+            PathAnimation {
+                target: food1
+                duration: 1000
+                path: Path {
+                    startX: 0
+                    startY: 350
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 60; relativeX: 60; relativeY: -10}
+                }
+            }
+            NumberAnimation {
+                target: food1
+                property: "opacity"
+                from: 1
+                to: 0
+                duration: 250
+            }
+
+        }
+        SequentialAnimation {
+            id: bouncingFood2
+            onStopped: {
+                if (page.state == "waiting state") {
+                    food3.visible = true
+                    food3.opacity = true
+                    bouncingFood3.start()
+                }
+            }
+
+            PathAnimation {
+                target: food2
+                duration: 1000
+                path: Path {
+                    startX: 640
+                    startY: 350
+                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 60; relativeX: -80; relativeY: -10}
+                }
+            }
+            NumberAnimation {
+                target: food2
+                property: "opacity"
+                from: 1
+                to: 0
+                duration: 250
+            }
+        }
+        SequentialAnimation {
+            id: bouncingFood3
+            onStopped: {
+                if (page.state == "waiting state") {
+                    food4.visible = true
+                    food4.opacity = true
+                    bouncingFood4.start()
+                }
+            }
+            PathAnimation {
+                target: food3
+                duration: 1000
+                path: Path {
+                    startX: 0
+                    startY: 350
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 60; relativeX: 60; relativeY: -10}
+                }
+            }
+            NumberAnimation {
+                target: food3
+                property: "opacity"
+                from: 1
+                to: 0
+                duration: 250
+            }
+        }
+        SequentialAnimation {
+            id: bouncingFood4
+            onStopped: {
+                if (page.state == "waiting state") {
+                    food5.visible = true
+                    food5.opacity = true
+                    bouncingFood5.start()
+                }
+            }
+            PathAnimation {
+                target: food4
+                duration: 1000
+                path: Path {
+                    startX: 640
+                    startY: 350
+                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 60; relativeX: -80; relativeY: -10}
+                }
+            }
+            NumberAnimation {
+                target: food4
+                property: "opacity"
+                from: 1
+                to: 0
+                duration: 250
+            }
+        }
+        SequentialAnimation {
+            id: bouncingFood5
+            onStopped: {
+                if (page.state == "waiting state") {
+                    food6.visible = true
+                    food6.opacity = true
+                    bouncingFood6.start()
+                }
+            }
+            PathAnimation {
+                target: food5
+                duration: 1000
+                path: Path {
+                    startX: 0
+                    startY: 350
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 60; relativeX: 60; relativeY: -10}
+                }
+            }
+            NumberAnimation {
+                target: food5
+                property: "opacity"
+                from: 1
+                to: 0
+                duration: 250
+            }
+        }
+        SequentialAnimation {
+            id: bouncingFood6
+            onStopped: {
+                if (page.state == "waiting state") {
+                    food7.visible = true
+                    food7.opacity = true
+                    bouncingFood7.start()
+                }
+            }
+            PathAnimation {
+                target: food6
+                duration: 1000
+                path: Path {
+                    startX: 640
+                    startY: 350
+                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 40; relativeX: -60; relativeY: 0}
+                    PathArc {direction: PathArc.Counterclockwise; radiusX: 30; radiusY: 60; relativeX: -80; relativeY: -10}
+                }
+            }
+            NumberAnimation {
+                target: food6
+                property: "opacity"
+                from: 1
+                to: 0
+                duration: 250
+            }
+        }
+        SequentialAnimation {
+            id: bouncingFood7
+            onStopped: {
+                if (page.state == "waiting state") {
+                    food1.visible = true
+                    food1.opacity = true
+                    bouncingFood1.start()
+                }
+            }
+            PathAnimation {
+                target: food7
+                duration: 1000
+                path: Path {
+                    startX: 0
+                    startY: 350
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 40; relativeX: 60; relativeY: 0}
+                    PathArc {radiusX: 30; radiusY: 60; relativeX: 60; relativeY: -10}
+                }
+            }
+            NumberAnimation {
+                target: food7
+                property: "opacity"
+                from: 1
+                to: 0
+                duration: 250
             }
         }
 
