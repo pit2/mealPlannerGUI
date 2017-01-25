@@ -6,6 +6,10 @@ Item {
     id: page
     width: 640
     height: 480
+    property alias heartImage1: heartImage1
+    property alias heartImage2: heartImage2
+    property alias heartImage3: heartImage3
+    property alias angryBubbleImage: angryBubbleImage
     property alias saveMealPlanButton: saveMealPlanButton
     property alias backToMainButton: backToMainButton
     property alias loadButton: loadButton
@@ -249,9 +253,9 @@ Item {
         x: -6
         y: -9
         color: "#bcb0b0"
-        anchors.rightMargin: 0
+        anchors.rightMargin: 8
         anchors.bottomMargin: 0
-        anchors.leftMargin: 0
+        anchors.leftMargin: -8
         anchors.topMargin: 0
         visible: false
         Button {
@@ -397,6 +401,65 @@ Item {
         text: qsTr("Button")
         opacity: 0
     }
+
+    Image {
+        id: animalImage
+        y: 357
+        width: 96
+        height: 96
+        anchors.left: parent.left
+        anchors.leftMargin: 130
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 27
+        sourceSize.height: 96
+        sourceSize.width: 96
+        source: "cowStaring96.png"
+    }
+
+    Image {
+        id: angryBubbleImage
+        x: 83
+        y: 334
+        width: 32
+        height: 32
+        visible: false
+        sourceSize.height: 32
+        sourceSize.width: 32
+        source: "angryBubble32.png"
+    }
+
+    Image {
+        id: heartImage1
+        x: 100
+        y: 372
+        width: 24
+        height: 24
+        sourceSize.height: 24
+        sourceSize.width: 24
+        source: "heart24.png"
+    }
+
+    Image {
+        id: heartImage2
+        x: 65
+        y: 342
+        width: 24
+        height: 24
+        source: "heart24.png"
+        sourceSize.width: 24
+        sourceSize.height: 24
+    }
+
+    Image {
+        id: heartImage3
+        x: 121
+        y: 322
+        width: 24
+        height: 24
+        source: "heart24.png"
+        sourceSize.width: 24
+        sourceSize.height: 24
+    }
     states: [
         State {
             name: "config state"
@@ -448,6 +511,11 @@ Item {
 
             PropertyChanges {
                 target: loadButton
+                visible: false
+            }
+
+            PropertyChanges {
+                target: animalImage
                 visible: false
             }
         },
@@ -536,6 +604,11 @@ Item {
                 text: qsTr("Back")
                 opacity: 1
             }
+
+            PropertyChanges {
+                target: animalImage
+                visible: false
+            }
         },
         State {
             name: "mealPlan state"
@@ -600,6 +673,11 @@ Item {
             PropertyChanges {
                 target: mealPlanTable
                 opacity: 1
+            }
+
+            PropertyChanges {
+                target: animalImage
+                visible: false
             }
         }
     ]

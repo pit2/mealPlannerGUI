@@ -113,6 +113,13 @@ ApplicationWindow {
             onCheckedChanged: {
                 if  (veganCheckbox.checked) {
                     lactoseCheckBox.checked = true
+                    angryBubbleImage.visible = false
+                    floatingHearts.start()
+
+                } else {
+                    floatingHearts.complete()
+                    angryBubbleImage.visible = true
+                    angryBubbleImage.scale = 0.2
                 }
             }
         }
@@ -270,5 +277,100 @@ ApplicationWindow {
             }
           //  Component.onCompleted: visible = true
         }
+
+        angryBubbleImage {
+            Behavior on scale {
+                NumberAnimation {
+                    from: 0.2
+                    to: 1.0
+                    duration: 200
+                    easing.type: Easing.OutBounce
+                }
+            }
+
+        }
+
+        heartImage1 {
+            id: heart1
+         }
+        heartImage2 {
+            id: heart2
+        }
+        heartImage3 {
+            id: heart3
+        }
+
+        ParallelAnimation {
+            id: floatingHearts
+            loops: 3
+            running: true
+            PathAnimation {
+                path: Path {
+                    startX: 100
+                    startY: 372
+                    PathCurve {relativeX: -10; relativeY: -20}
+                    PathCurve {relativeX: 10; relativeY: -20}
+                    PathCurve {relativeX: 20; relativeY: -20}
+                    PathCurve {relativeX: -10; relativeY: -20}
+                }
+
+                target: heart1
+                duration: 2000
+
+            }
+            NumberAnimation {
+                target: heart1
+                property: "opacity"
+                from: 1
+                to: 0
+                duration: 2000
+                easing.type: Easing.InExpo
+            }
+            PathAnimation {
+                path: Path {
+                    startX: 65
+                    startY: 342
+                    PathCurve {relativeX: -10; relativeY: -20}
+                    PathCurve {relativeX: 10; relativeY: -20}
+                    PathCurve {relativeX: 20; relativeY: -20}
+                    PathCurve {relativeX: -10; relativeY: -20}
+                }
+
+                target: heart2
+                duration: 1700
+
+            }
+            NumberAnimation {
+                target: heart2
+                property: "opacity"
+                from: 1
+                to: 0
+                duration: 1700
+                easing.type: Easing.InExpo
+            }
+            PathAnimation {
+                path: Path {
+                    startX: 121
+                    startY: 322
+                    PathCurve {relativeX: -10; relativeY: -20}
+                    PathCurve {relativeX: 10; relativeY: -20}
+                    PathCurve {relativeX: 20; relativeY: -20}
+                    PathCurve {relativeX: -10; relativeY: -20}
+                }
+
+                target: heart3
+                duration: 2500
+
+            }
+            NumberAnimation {
+                target: heart3
+                property: "opacity"
+                from: 1
+                to: 0
+                duration: 2500
+                easing.type: Easing.InExpo
+            }
+        }
+
     } 
 }
